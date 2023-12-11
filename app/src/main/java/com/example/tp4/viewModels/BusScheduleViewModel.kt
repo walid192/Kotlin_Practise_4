@@ -1,5 +1,6 @@
 package com.example.tp4.viewModels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.tp4.database.entities.Schedule
@@ -15,10 +16,9 @@ class BusScheduleViewModel(private val scheduleDao: ScheduleInterface) : ViewMod
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-
     }
-    fun fullSchedule(): List<Schedule> = scheduleDao.getAll()
+    fun fullSchedule(): LiveData<List<Schedule>> = scheduleDao.getAll()
 
-    fun scheduleByStop(stop: String): List<Schedule> = scheduleDao.getScheduleByStop(stop)
-
+    fun scheduleByStop(stop: String): LiveData<List<Schedule>> = scheduleDao.getScheduleByStop(stop)
 }
+

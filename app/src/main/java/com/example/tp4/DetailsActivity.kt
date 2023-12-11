@@ -40,14 +40,10 @@ class DetailsActivity : AppCompatActivity() {
 
         val schedule = intent.getStringExtra("schedule")
 
-        var list = listOf<Schedule>()
-        if (schedule != null) {
-            Thread {
-                list = viewModel.scheduleByStop(schedule)
-                Handler(Looper.getMainLooper()).post {
-                    busStopAdapter.submitList(list)
-                }
-            }.start()
+        viewModel.scheduleByStop(schedule!!).observe(
+            this,
+        ) { schedule ->
+            busStopAdapter.submitList(schedule)
         }
 
     }

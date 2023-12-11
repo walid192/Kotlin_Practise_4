@@ -33,12 +33,10 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.adapter= adapter
 
-        var list = listOf<Schedule>()
-        Thread {
-            list = viewModel.fullSchedule()
-            Handler(Looper.getMainLooper()).post {
-                adapter.submitList(list)
-            }
-        }.start()
+        viewModel.fullSchedule().observe(
+            this,
+        ) { schedule ->
+            adapter.submitList(schedule)
+        }
     }
 }
